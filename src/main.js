@@ -7,10 +7,12 @@ import store from './store'
 import ElementUi from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import iView from 'iview'
+import'iview/dist/styles/iview.css'
 import $ from 'jquery'
 window.$=$
 import VueMoment from 'vue-moment'
 import VueResource from 'vue-resource'
+
 
 
 Vue.config.productionTip = false

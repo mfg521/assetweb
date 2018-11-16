@@ -21,7 +21,7 @@
       </div>
 
       <div class="node"
-           :style="{background: 'url(' + '/static/images/'+roominfo.roomNum+'.png' + ')' +'0% 0% / 63%' + 'no-repeat'}">
+           :style="{background: 'url(' + '/dist/static/images/'+roominfo.roomNum+'.png' + ')' +'0% 0% / 63%' + 'no-repeat'}">
 
         <div v-for="(specialRoom,indexr) in roominfo.roomSpecialComment" :key="indexr"
              :style="{left : specialRoom.left+'%',top : specialRoom.top+'%',width:specialRoom.width+'rem',height:specialRoom.height+'rem'}"
