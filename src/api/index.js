@@ -2,8 +2,9 @@
 
  */
 import ajax from './ajax'
-const BASE_URL='http://172.30.1.83:8001'
-//const BASE_URL='/api'
+// const BASE_URL='http://172.30.1.83:8001'
+const BASE_URL='http://127.0.0.1:8001'
+// const BASE_URL='/api'
 
 //1、根据位置坐标获取位置信息
 export const  reqEmpInfo=({roomNum})=>ajax(BASE_URL+"/employee/listroom",{roomNum},'POST')

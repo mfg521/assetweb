@@ -431,7 +431,7 @@
         } else {
             this.$store.dispatch('changeToFalse')
             this.$router.push({
-              name: 'room'+roomNum,
+              name: 'room',
               params: {
                 xindex: xindex,
                 yindex: yindex

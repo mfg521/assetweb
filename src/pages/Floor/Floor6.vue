@@ -70,6 +70,7 @@
     width: 100%
     padding-bottom 50%
     background: url("/dist/static/images/6thFloor.jpg") no-repeat
+    /*background: url("/static/images/6thFloor.jpg") no-repeat*/
     background-size: 100% //背景图片所占夫级的百分比
     position: relative
     text-align: center

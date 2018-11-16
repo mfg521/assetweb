@@ -533,10 +533,9 @@
         } else {
           const result = await getLocationByAsset(serialNumber)
           if (result.code === 0) {
-            var roomNum = result.data.roomNum
             this.$store.dispatch('changeToFalse')
             this.$router.push({
-              name: "room"+roomNum,
+              name: "room",
               params: {
                 xindex: result.data.xindex,
                 yindex: result.data.yindex

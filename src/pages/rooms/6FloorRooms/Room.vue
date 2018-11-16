@@ -21,10 +21,12 @@
       </div>
 
       <div class="node"
-           :style="{background: 'url(' + '/dist/static/images/'+roominfo.roomNum+'.png' + ')' +'0% 0% / 63%' + 'no-repeat'}">
+           :style="{background: 'url(' + '/dist/static/images/'+roominfo.roomNum+'.png' + ')' +'0% 0% / 100%' + 'no-repeat'}">
 
+
+        <!--特殊房间-->
         <div v-for="(specialRoom,indexr) in roominfo.roomSpecialComment" :key="indexr"
-             :style="{left : specialRoom.left+'%',top : specialRoom.top+'%',width:specialRoom.width+'rem',height:specialRoom.height+'rem'}"
+             :style="{left : specialRoom.left+'%',top : specialRoom.top+'%',width:specialRoom.width+'%',height:specialRoom.height+'%'}"
              class="drag-div">
           <div class="select-item">
             ONE
@@ -54,9 +56,10 @@
 
           </div>
 
-          <!--偶数-->
+          <!--偶数,oLeft可以计算出来，最后加上是防止第一列是奇数列-->
+
           <div v-else
-               :style="{left : roominfo.roomNormalComment.inWidth*indexs+roominfo.roomNormalComment.oLeft*1+'%',
+               :style="{left : roominfo.roomNormalComment.inWidth*indexs+roominfo.roomNormalComment.jLeft*1+roominfo.roomNormalComment.width*1-roominfo.roomNormalComment.inWidth*1+roominfo.roomNormalComment.oLeft*1+'%',
                         top : roominfo.roomNormalComment.inHeight*index+roominfo.roomNormalComment.oTop*1+'%',
                         width:roominfo.roomNormalComment.width*1+'%',height:roominfo.roomNormalComment.height*1+'%'}"
                :class=" index+' drag-div ' +indexs " @drop='drop($event)' @dragover='allowDrop($event)'
@@ -67,10 +70,11 @@
 
           </div>
         </div>
+      </div>
 
+      <div class="showInfo" >
         <!--展示用户详细信息-->
-        <div class="showImployeeInfo"
-             x-placement="bottom">
+        <div class="showImployeeInfo" x-placement="bottom">
           <div class="ivu-tooltip-inner">
             <div style=" text-align: center; width: auto;height: auto">
               <img src="../../../../static/images/1.png" style="width: 40%; height: 40%; border-radius: 50%;">
@@ -120,7 +124,7 @@
         <!--展示资产详细信息-->
         <div class="showAssetInfo" v-show="assetIsShow" :class="{'meng ': assetIsShow} " x-placement="bottom">
           <div class="ivu-tooltip-inner">
-            <div v-if=" this.CurentAseet !== '' " style="text-align: center; width: auto;height: 9rem">
+            <div v-if=" this.CurentAseet !== '' " style="text-align: center; width: auto">
               <div style="text-align: left; width: 80%;float: left ">
                 <span style="font-weight: bold; clear: both">Lenovo P300 Series</span>
                 <p style="margin: 0"><span style="margin-right: 10%; font-weight: bold;">Serial Number</span>{{CurentAseet.serialNumber}}
@@ -132,7 +136,7 @@
                 <p style="margin: 0"><span style="margin-right: 10%; font-weight: bold;">FN Code</span>xxxxxxxx</p>
 
               </div>
-              <div style="width: 20%;float: left;height: 80%;line-height: 7.2rem">
+              <div style="width: 20%;float: left;height: auto">
                 <a class="guide_item"><i class="iconfont icon-angle-right"></i></a>
               </div>
 
@@ -153,37 +157,35 @@
           </div>
         </div>
 
-        <!--新增修改 -->
-        <el-dialog :title="dialog.dialogTitle" :visible.sync="dialog.dialogFormVisible">
-          <el-form :model="changeAssetForm" ref="recordForm" label-width="100px">
-
-            <el-form-item label="serialNumber" prop="serialNumber">
-              <el-input v-model="changeAssetForm.serialNumber"></el-input>
-            </el-form-item>
-
-          </el-form>
-          <div slot="footer" class="dialog-footer">
-            <el-button @click="dialog.dialogFormVisible = false">取 消</el-button>
-            <el-button type="primary" @click="save">确 定</el-button>
-          </div>
-        </el-dialog>
-
-
-        <!--新增employee -->
-        <el-dialog :title="employeeDialog.dialogTitle" :visible.sync="employeeDialog.dialogFormVisible">
-          <el-form :model="changeEmployeeForm" ref="recordForm" label-width="100px">
-            <el-form-item label="employeeNum" prop="employeeNum">
-              <el-input v-model="changeEmployeeForm.employeeNum"></el-input>
-            </el-form-item>
-          </el-form>
-          <div slot="footer" class="dialog-footer">
-            <el-button @click="employeeDialog.dialogFormVisible = false">取 消</el-button>
-            <el-button type="primary" @click="saveEmployee">确 定</el-button>
-          </div>
-        </el-dialog>
-
       </div>
+      <!--新增修改 -->
+      <el-dialog :title="dialog.dialogTitle" :visible.sync="dialog.dialogFormVisible">
+        <el-form :model="changeAssetForm" ref="recordForm" label-width="100px">
 
+          <el-form-item label="serialNumber" prop="serialNumber">
+            <el-input v-model="changeAssetForm.serialNumber"></el-input>
+          </el-form-item>
+
+        </el-form>
+        <div slot="footer" class="dialog-footer">
+          <el-button @click="dialog.dialogFormVisible = false">取 消</el-button>
+          <el-button type="primary" @click="save">确 定</el-button>
+        </div>
+      </el-dialog>
+
+
+      <!--新增employee -->
+      <el-dialog :title="employeeDialog.dialogTitle" :visible.sync="employeeDialog.dialogFormVisible">
+        <el-form :model="changeEmployeeForm" ref="recordForm" label-width="100px">
+          <el-form-item label="employeeNum" prop="employeeNum">
+            <el-input v-model="changeEmployeeForm.employeeNum"></el-input>
+          </el-form-item>
+        </el-form>
+        <div slot="footer" class="dialog-footer">
+          <el-button @click="employeeDialog.dialogFormVisible = false">取 消</el-button>
+          <el-button type="primary" @click="saveEmployee">确 定</el-button>
+        </div>
+      </el-dialog>
 
     </div>
 
@@ -421,33 +423,32 @@
 <style lang="stylus" rel="stylesheet/stylus">
   @import "../../../common/stylus/mixins.styl"
   .node {
-    width 100%
+    width 63%
     padding-bottom 50%
     /*background: url("../../../pages/rooms/6FloorRooms/images/621-622.png") no-repeat*/
-     background-size 63% //背景照片
+    //background-size 63% //背景照片
 
     position relative
     text-align center
-    height: 0px
+    /*height: 95%*/
+    float left
 
   }
-
-  .showAssetInfo {
-    position: absolute;
-    left 65%
-    top 95%
-    will-change: top, left;
-    width 30%
-    height auto
+  .showInfo{
+    margin-left 1%
+    height 95%
+    width 36%
     float left
+  }
+  .showAssetInfo {
+    margin-top 0.5rem
+    width 100%
+    height auto
   }
 
   .showImployeeInfo {
-    position: absolute;
-    left 65%
-    will-change: top, left;
-    width 30%
-    float left
+    height auto
+    width 100%
   }
 
   .select-item {
