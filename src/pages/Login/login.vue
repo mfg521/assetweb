@@ -1,5 +1,5 @@
 <template>
-  <div data-v-22ea91aa="" class="login-con ivu-card">
+  <div data-v-22ea91aa="" class="login-con ivu-card" style="position: absolute;background-color: #8c8c8c">
     <div class="ivu-card-head"><p><i class="ivu-icon ivu-icon-log-in"></i>
       welcome login in
     </p></div> <!---->

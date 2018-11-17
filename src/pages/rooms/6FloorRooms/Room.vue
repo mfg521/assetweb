@@ -72,10 +72,11 @@
         </div>
       </div>
 
+      <!--右边两个匡-->
       <div class="showInfo" >
         <!--展示用户详细信息-->
         <div class="showImployeeInfo" x-placement="bottom">
-          <div class="ivu-tooltip-inner">
+          <div class="ivu-tooltip-inner" style="max-width: none">
             <div style=" text-align: center; width: auto;height: auto">
               <img src="../../../../static/images/1.png" style="width: 40%; height: 40%; border-radius: 50%;">
               <p style="margin-bottom: 2%;">
@@ -123,7 +124,7 @@
 
         <!--展示资产详细信息-->
         <div class="showAssetInfo" v-show="assetIsShow" :class="{'meng ': assetIsShow} " x-placement="bottom">
-          <div class="ivu-tooltip-inner">
+          <div class="ivu-tooltip-inner" style="max-width: none">
             <div v-if=" this.CurentAseet !== '' " style="text-align: center; width: auto">
               <div style="text-align: left; width: 80%;float: left ">
                 <span style="font-weight: bold; clear: both">Lenovo P300 Series</span>
@@ -158,7 +159,8 @@
         </div>
 
       </div>
-      <!--新增修改 -->
+
+      <!--新增修改dialog -->
       <el-dialog :title="dialog.dialogTitle" :visible.sync="dialog.dialogFormVisible">
         <el-form :model="changeAssetForm" ref="recordForm" label-width="100px">
 
@@ -173,8 +175,7 @@
         </div>
       </el-dialog>
 
-
-      <!--新增employee -->
+      <!--新增employee dialog     -->
       <el-dialog :title="employeeDialog.dialogTitle" :visible.sync="employeeDialog.dialogFormVisible">
         <el-form :model="changeEmployeeForm" ref="recordForm" label-width="100px">
           <el-form-item label="employeeNum" prop="employeeNum">
@@ -241,7 +242,10 @@
     methods: {
 
       clickShowRoom(roomNum) {
+        //重新获取房间内employee信息
         this.$store.dispatch('getEmployee', {roomNum})
+        //重新获取roomInfo信息
+        this.$store.dispatch('getRoomInfo', roomNum)
         console.log(roomNum)
       },
 
@@ -485,10 +489,6 @@
 
   .drag-people-label {
     margin-bottom: 0;
-  }
-
-  .ivu-tooltip-inner {
-    max-width none
   }
 
   .iconfont {
