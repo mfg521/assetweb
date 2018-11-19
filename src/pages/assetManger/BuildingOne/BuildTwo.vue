@@ -550,7 +550,7 @@
 
       //返回图片流直接在src中用就可以
       async searchQrcode(assetQrcodeAddress) {
-        this.QrcodeUrl = "http://172.30.1.82:8088/asset/search_qrcode?assetQrcodeAddress=" + assetQrcodeAddress
+        this.QrcodeUrl = "http://172.30.1.82:8088/search_qrcode?assetQrcodeAddress=" + assetQrcodeAddress
         this.dialogUpdateVisible = true
 
       },
