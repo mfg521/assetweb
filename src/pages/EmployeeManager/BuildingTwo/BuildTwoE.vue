@@ -333,11 +333,11 @@
             const result = await createNewEmployee(employee)
             console.log(result)
             if (result.code === 0) {
-              this.$message.success('Create new asset scuccessfully！');
+              this.$message.success('Create new employee scuccessfully！');
               this.dialogCreateVisible = false;
               this.createLoading = false;
               this.reset();
-              this.getEmp(0,0);
+              this.getEmp();
             } else {
               this.$message.error(result.errmsg);
               this.createLoading = false;

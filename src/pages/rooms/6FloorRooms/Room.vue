@@ -220,7 +220,8 @@
         changeEmployeeForm: {
           employeeNum: '',
           currentEmployeeNum: '',
-          roomNum: 601,
+          roomNum: '',
+          floor:''
         },
 
         changeAssetForm: {
@@ -330,11 +331,13 @@
 
       saveEmployee: async function () {
         this.changeEmployeeForm.currentEmployeeNum = this.CurentEmployee.employeeUuid
+        this.changeEmployeeForm.roomNum=this.roominfo.roomNum
+        this.changeEmployeeForm.floor=6
         const employeeVo = this.changeEmployeeForm
         const result = await changeOrSaveEmp(employeeVo)
         if (result.code === 0) {
           this.$message.success("Change Or Save Employee successfully!");
-          this.$store.dispatch('getEmployee', {roomNum: 601})
+          this.$store.dispatch('getEmployee', {roomNum: this.roominfo.roomNum})
           this.employeeDialog.dialogFormVisible = false
 
         } else {
@@ -367,8 +370,13 @@
               yindex = xindex
             }
             var employeeUuid = this.CurrentEmployeeUUID
-            await changeEmp({employeeUuid, xindex, yindex})
-            event.target.appendChild(dom);
+            const result= await changeEmp({employeeUuid, xindex, yindex})
+            if(result.code===0){
+              event.target.appendChild(dom);
+            }else {
+              this.$message.error(result.errmsg)
+            }
+
           } else {
             this.$message.error("The seats have been taken")
           }
