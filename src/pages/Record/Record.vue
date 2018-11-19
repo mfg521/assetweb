@@ -36,24 +36,28 @@
                     <span>{{scope.row.serialNumber}}</span>
                   </template>
                 </el-table-column>
-                <el-table-column align="center" prop="borrowedDate" label="borrowedDate">
+                <el-table-column align="center" prop="borrowedDate" label="borrowedDate" width="150%">
                   <template slot-scope="scope">
                     <span>{{scope.row.borrowedDate}}</span>
                   </template>
                 </el-table-column>
-                <el-table-column align="center" prop="returnDate" label="returnDate">
+                <el-table-column align="center" prop="returnDate" label="returnDate" width="150%">
                   <template slot-scope="scope">
                     <span>{{scope.row.returnDate}}</span>
                   </template>
                 </el-table-column>
-                <el-table-column align="center" prop="assetType" label="assetType" v-if="!isPopover">
+                <el-table-column align="center" prop="assetType" label="assetType">
                   <template slot-scope="scope">
-                    <span>{{scope.row.assetType}}</span>
+                    <span v-if="scope.row.assetType===1">CPU</span>
+                    <span v-else-if="scope.row.assetType===2">MONITER</span>
+                    <span v-else-if="scope.row.assetType===3">LAPTOP</span>
+                    <span v-else>PHONE</span>
                   </template>
                 </el-table-column>
                 <el-table-column align="center" prop="isReturned" label="isReturned">
                   <template slot-scope="scope">
-                    <span>{{scope.row.isReturned}}</span>
+                    <span v-if="scope.row.isReturned===0">No</span>
+                    <span v-else>Yes</span>
                   </template>
                 </el-table-column>
               </el-table>
@@ -79,9 +83,9 @@
 </template>
 
 <script>
-  import loginHeader from '../../../components/LoginHeader/loginHeader'
+  import loginHeader from '../../components/LoginHeader/loginHeader'
 
-  import {getAllAssetRecord} from "../../../api";
+  import {getAllAssetRecord} from "../../api/record";
 
   var placeholders = {"name": "请输入查找姓名", "username": "请输入查找用户名", "phone": "请输入查找电话"};
 
@@ -174,7 +178,7 @@
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">
-  @import '../../../static/plugins/bootstrap/css/bootstrap.min.css';
-  @import '../../../static/css/global.css';
-  @import '../../../static/css/main.min.css';
+  @import '../../static/plugins/bootstrap/css/bootstrap.min.css';
+  @import '../../static/css/global.css';
+  @import '../../static/css/main.min.css';
 </style>

@@ -21,7 +21,7 @@
       </div>
 
       <div class="node"
-           :style="{background: 'url(' + '/dist/static/images/'+roominfo.roomNum+'.png' + ')' +'0% 0% / 100%' + 'no-repeat'}">
+           :style="{background: 'url(' + '/static/images/'+roominfo.roomNum+'.png' + ')' +'0% 0% / 100%' + 'no-repeat'}">
 
 
         <!--特殊房间-->
@@ -198,7 +198,8 @@
   import loginHeader from '../../../components/LoginHeader/loginHeader'
   import draggable from 'vuedraggable';
   import {mapState} from 'vuex'
-  import {reqAssetBy, returnAsset, changeAsset, changeEmp, reqRoomInfoByFloor, changeOrSaveEmp} from "../../../api";
+  import {reqAssetBy, returnAsset, changeAsset} from "../../../api/record";
+  import {changeEmp, changeOrSaveEmp} from "../../../api/employee";
 
   let dom = '';
   export default {
@@ -247,7 +248,6 @@
         this.$store.dispatch('getEmployee', {roomNum})
         //重新获取roomInfo信息
         this.$store.dispatch('getRoomInfo', roomNum)
-        console.log(roomNum)
       },
 
 
@@ -332,7 +332,6 @@
       saveEmployee: async function () {
         this.changeEmployeeForm.currentEmployeeNum = this.CurentEmployee.employeeUuid
         this.changeEmployeeForm.roomNum=this.roominfo.roomNum
-        this.changeEmployeeForm.floor=6
         const employeeVo = this.changeEmployeeForm
         const result = await changeOrSaveEmp(employeeVo)
         if (result.code === 0) {
@@ -400,13 +399,6 @@
     },
 
     async mounted() {
-
-      //通过楼层号找到对应的房间号，为的是显示头table 601 602 603这些按钮
-      const result = await reqRoomInfoByFloor({floor: 6})
-      this.$store.dispatch('commitRoom', {room: result})
-
-      //通过房间号照度奥对应的employee,并提交到state
-      //created:this.$store.dispatch('getEmployee', {roomNum: 601})
 
       //给指定div设置颜色 xindex yindex div的坐标
       var xindex = this.$route.params.xindex

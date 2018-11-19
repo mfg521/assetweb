@@ -11,9 +11,9 @@ import {
   RECEIVE_ROOMINFO
 } from "./mutation-types";
 
-import {
-  reqEmpInfo, reqAssetHomeData,reqRoomInfo
-} from '../api'
+import {reqRoomInfo} from '../api/room'
+import {reqEmpInfo} from "../api/employee";
+import {reqAssetHomeData} from '../api/asset'
 
 export default {
   async getEmployee({commit}, {roomNum}) {
@@ -21,8 +21,7 @@ export default {
     const result = await reqEmpInfo({roomNum})
     {
       // commit mutation
-      const employee = result
-
+      const employee = result.data
       commit(RECEIVE_EMPLOYEE, {employee})
     }
 
@@ -59,8 +58,7 @@ export default {
   //异步获取首页数据
   async getHomeData({commit}) {
     const assetHomeDatas = await reqAssetHomeData()
-    console.log(assetHomeDatas.data)
-    const assetHomeData=assetHomeDatas.data
+    const assetHomeData = assetHomeDatas.data
     commit(RECEIVE_HOME_DATA, {assetHomeData})
 
 

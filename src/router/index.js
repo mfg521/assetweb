@@ -5,12 +5,11 @@ import Floor3 from '../pages/Floor/Floor3'
 import Floor5 from '../pages/Floor/Floor5'
 import Floor6 from '../pages/Floor/Floor6'
 import Room621 from '../pages/rooms/6FloorRooms/Room'
-import assetManagerBuildingOne from '../pages/assetManger/BuildingOne/BuildOne'
-import assetManagerBuildingTwo from '../pages/assetManger/BuildingOne/BuildTwo'
-import ArecordManagerBuildingOne from '../pages/ARecordManger/BuildingOne/BuildOne'
+import assetManager from '../pages/assetManger/AssetManager'
+import record from '../pages/Record/Record'
 import login from '../pages/Login/login'
 import home from '../pages/home/home'
-import EmpManager from '../pages/EmployeeManager/BuildingTwo/BuildTwoE'
+import employee from '../pages/EmployeeManager/Employee'
 
 
 
@@ -80,32 +79,24 @@ export default new Router({
       }
 
     },{
-      path:'/assetm/buildingone',
-      component:assetManagerBuildingOne,
-      meta:{
-        showLayoutSider:true
-      }
-
-    },{
-      path:'/assetm/buildingtwo',
-      component:assetManagerBuildingTwo,
+      path:'/asset/assetmanager',
+      component:assetManager,
       name:'abceefg',
       meta:{
         showLayoutSider:true
       }
 
     }, {
-      path: '/arecordm/buildingone',
-      component: ArecordManagerBuildingOne,
-      name:'arecord',
+      path: '/record/record',
+      component: record,
+      name:'record',
       meta: {
         showLayoutSider: true
       }
 
     }, {
-      path: '/employeem/buildingtwo',
-      component: EmpManager,
-      name:'arecord',
+      path: '/employee/employee',
+      component: employee,
       meta: {
         showLayoutSider: true
       }

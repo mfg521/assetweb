@@ -27,6 +27,7 @@
 
   import {mapState} from 'vuex'
   import LoginHeader from '../../components/LoginHeader/loginHeader'
+  import {reqRoomInfoByFloor} from "../../api/room";
 
   export default {
 
@@ -34,13 +35,14 @@
       return {}
     },
     methods: {
-      clickOnes(roomNum) {
-        // this.$store.dispatch('commitRoom', {room: result})
-
-
+     async clickOnes(roomNum) {
         this.$store.dispatch('getRoomInfo',roomNum)
         this.$store.dispatch('getEmployee', {roomNum})
         this.$store.dispatch('changeToFalse')
+
+        //通过楼层号找到对应的房间号，为的是显示头table 601 602 603这些按钮
+        const result = await reqRoomInfoByFloor({floor: 6})
+        this.$store.dispatch('commitRoom', {room: result})
 
         this.$router.push({
           name: 'room',
@@ -69,7 +71,7 @@
 
     width: 100%
     padding-bottom 50%
-    background: url("/dist/static/images/6thFloor.jpg") no-repeat
+    background: url("/static/images/6thFloor.jpg") no-repeat
     /*background: url("/static/images/6thFloor.jpg") no-repeat*/
     background-size: 100% //背景图片所占夫级的百分比
     position: relative

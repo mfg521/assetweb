@@ -29,7 +29,7 @@
 
 <script>
 
-  import {reqRoomInfoByFloor} from "../../api";
+  import {reqRoomInfoByFloor} from "../../api/room";
 
   export default {
     data() {
@@ -53,6 +53,20 @@
               {name: '6Floor', floor: '26'}
             ]
           }, {
+            name: 'Asset',
+            isSubShow: false,
+            subItems: [
+              {name: 'assetmanager'}
+            ]
+
+          }, {
+            name: 'Record',
+            isSubShow: false,
+            subItems: [
+              {name: 'record'}
+            ]
+
+          },{
             name: 'Report',
             isSubShow: false,
             subItems: [
@@ -62,27 +76,10 @@
             ]
 
           }, {
-            name: 'AssetM',
+            name: 'Employee',
             isSubShow: false,
             subItems: [
-              {name: 'BuildingOne'},
-              {name: 'BuildingTwo'}
-            ]
-
-          }, {
-            name: 'ARecordM',
-            isSubShow: false,
-            subItems: [
-              {name: 'BuildingOne'},
-              {name: 'BuildingTwo'}
-            ]
-
-          }, {
-            name: 'EmployeeM',
-            isSubShow: false,
-            subItems: [
-              {name: 'BuildingOne'},
-              {name: 'BuildingTwo'}
+              {name: 'employee'},
             ]
 
           }
