@@ -87,7 +87,7 @@
                     <el-button size="mini" @click="searchLocation(scope.row.assetStatus,scope.row.serialNumber)"><span
                       class="edit-search">L</span></el-button>
 
-                    <el-button size="mini" @click="searchQrcode(scope.row.assetQrcodeAddress)"><span
+                    <el-button size="mini" @click="searchQrcode(scope.row)"><span
                       class="edit-search">QR</span></el-button>
 
                   </template>
@@ -150,9 +150,8 @@
             <div style="float: left">
               <img src="../../assets/cpelogo.png" style="width: 26px"/>
               <span style="font-size: 14px"> ASSET DETAILS: </span>
-              <p style="margin: 0;font-size: 10px"><span style="margin-right: 5px; font-weight: bold;font-size: 10px">Serial Number</span>1234567</p>
-              <p style="margin: 0;font-size: 10px"><span style="margin-right: 5px; font-weight: bold;font-size: 10px">Tagged Number</span></p>
-              <p style="margin: 0;font-size: 10px"><span style="margin-right: 5px; font-size: 10px">CPE_IT_2018_222</span></p>
+              <p style="margin: 0;font-size: 10px"><span style="margin-right: 5px; font-weight: bold;font-size: 10px">Serial Number</span></p>
+              <p style="margin: 0;font-size: 10px"><span style="margin-right: 5px; font-size: 10px">{{this.curentAsset.serialNumber}}</span></p>
             </div>
             <div>
               <img :src="this.QrcodeUrl" style="width:83px; height: 83px" />
@@ -209,6 +208,7 @@
         QrcodeUrl: '',
         url: 'url',
         users: [],
+        curentAsset:{},
         create: {
           assetId: '',
           assetName: '',
@@ -548,8 +548,9 @@
       },
 
       //返回图片流直接在src中用就可以
-      async searchQrcode(assetQrcodeAddress) {
-        this.QrcodeUrl = "http://172.30.1.82:8088/search_qrcode?assetQrcodeAddress=" + assetQrcodeAddress
+      async searchQrcode(asset) {
+        this.curentAsset=asset
+        this.QrcodeUrl = "http://172.30.1.82:8088/search_qrcode?assetQrcodeAddress=" + asset.assetQrcodeAddress
         this.dialogUpdateVisible = true
 
       },
