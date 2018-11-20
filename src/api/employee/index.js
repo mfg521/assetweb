@@ -20,3 +20,5 @@ export const getAllEmp=({pageNum,pageSize,queryPo})=>ajax(BASE_URL+"/employee/se
 
 //17、创建新用户
 export const createNewEmployee=(employee)=>ajax(BASE_URL+"/employee/add",employee,"POST")
+
+//
