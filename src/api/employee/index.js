@@ -19,4 +19,4 @@ export const  changeOrSaveEmp=(employeeVo)=>ajax(BASE_URL+"/employee/changeOrSav
 export const getAllEmp=({pageNum,pageSize,queryPo})=>ajax(BASE_URL+"/employee/search_employee_info",{pageNum,pageSize,queryPo},'POST')
 
 //17、创建新用户
-export const createNewEmployee=(employee)=>ajax(BASE_URL+"employee/add",employee,"POST")
+export const createNewEmployee=(employee)=>ajax(BASE_URL+"/employee/add",employee,"POST")
