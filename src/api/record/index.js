@@ -2,9 +2,9 @@
 
  */
 import ajax from '../ajax'
-// const BASE_URL='http://172.30.1.83:8001'
+const BASE_URL='http://172.30.1.83:8001'
 // const BASE_URL='http://127.0.0.1:8001'
-const BASE_URL='/api'
+// const BASE_URL='/api'
 
 //1、根据用户ID和对应编号来获取定应的资产信息
 export const reqAssetBy=({employeeUuid,assetType})=>ajax(BASE_URL+"/record/getasset",{employeeUuid,assetType},"POST")

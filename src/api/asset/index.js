@@ -2,9 +2,9 @@
 
  */
 import ajax from '../ajax'
-// const BASE_URL='http://172.30.1.83:8001'
+const BASE_URL='http://172.30.1.83:8001'
 // const BASE_URL='http://127.0.0.1:8001'
-const BASE_URL='/api'
+// const BASE_URL='/api'
 
 //1、获取所有的资产信息
 export const getAllAsset=({pageNum,pageSize,queryPo})=>ajax(BASE_URL+"/asset/search_asset_info",{pageNum,pageSize,queryPo},'POST')

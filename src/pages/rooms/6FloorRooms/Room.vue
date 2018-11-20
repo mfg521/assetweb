@@ -21,7 +21,7 @@
       </div>
 
       <div class="node"
-           :style="{background: 'url(' + '/static/images/'+roominfo.roomNum+'.png' + ')' +'0% 0% / 100%' + 'no-repeat'}">
+           :style="{background: 'url(' + '/dist/static/images/'+roominfo.roomNum+'.png' + ')' +'0% 0% / 100%' + 'no-repeat'}">
 
 
         <!--特殊房间-->
