@@ -39,11 +39,11 @@
                         @selection-change="tableSelectionChange">
                 <el-table-column align="center" type="selection" width="50"></el-table-column>
 
-                <el-table-column align="center" prop="assetName" label="assetName">
+                <el-table-column align="center" prop="computerModel" label="computerModel">
                   <template slot-scope="scope">
-                    <el-input v-if="showEdit[scope.$index]" v-model="scope.row.assetName" size="small"
+                    <el-input v-if="showEdit[scope.$index]" v-model="scope.row.computerModel" size="small"
                               placeholder="请输入内容"></el-input>
-                    <span v-if="!showEdit[scope.$index]">{{scope.row.assetName}}</span>
+                    <span v-if="!showEdit[scope.$index]">{{scope.row.computerModel}}</span>
                   </template>
                 </el-table-column>
 
@@ -54,26 +54,26 @@
                     <span v-if="!showEdit[scope.$index]">{{scope.row.serialNumber}}</span>
                   </template>
                 </el-table-column>
-                <el-table-column align="center" prop="computerBrand" label="computerBrand">
-                  <template slot-scope="scope">
-                    <el-input v-if="showEdit[scope.$index]" v-model="scope.row.computerBrand" size="small"
-                              placeholder="请输入内容"></el-input>
-                    <span v-if="!showEdit[scope.$index]">{{scope.row.computerBrand}}</span>
-                  </template>
-                </el-table-column>
-                <el-table-column align="center" prop="computerModel" label="computerModel">
-                  <template slot-scope="scope">
-                    <el-input v-if="showEdit[scope.$index]" v-model="scope.row.computerModel" size="small"
-                              placeholder="请输入内容"></el-input>
-                    <span v-if="!showEdit[scope.$index]">{{scope.row.computerModel}}</span>
-                  </template>
-                </el-table-column>
 
                 <el-table-column align="center" prop="assetType" label="assetType">
                   <template slot-scope="scope">
                     <el-input v-if="showEdit[scope.$index]" v-model="scope.row.assetType" size="small"
                               placeholder="请输入内容"></el-input>
-                    <span v-if="!showEdit[scope.$index]">{{scope.row.assetType}}</span>
+                    <span v-if="!showEdit[scope.$index]&&scope.row.assetType===1">CPU</span>
+                    <span v-else-if="!showEdit[scope.$index]&&scope.row.assetType===2">MONITER</span>
+                    <span v-else-if="!showEdit[scope.$index]&&scope.row.assetType===3">LAPTOP</span>
+                    <span v-else="!showEdit[scope.$index]&&scope.row.assetType===4">PHONE</span>
+                  </template>
+                </el-table-column>
+
+                <el-table-column align="center" prop="assetStatus" label="assetStatus">
+                  <template slot-scope="scope">
+                    <el-input v-if="showEdit[scope.$index]" v-model="scope.row.assetStatus" size="small"
+                              placeholder="请输入内容"></el-input>
+                    <span v-if="!showEdit[scope.$index]&&scope.row.assetStatus===0">FREE</span>
+                    <span v-else-if="!showEdit[scope.$index]&&scope.row.assetStatus===1">IN USE</span>
+                    <span v-else="!showEdit[scope.$index]&&scope.row.assetType===2">BROKEN</span>
+
                   </template>
                 </el-table-column>
 
@@ -136,7 +136,7 @@
           <!--<el-input v-model="create.assetType"></el-input>-->
           <!--</el-form-item>-->
           <el-form-item label="assetType" prop="assetType" >
-            <el-select v-model="create.assetType" @change="obtainValue" placeholder="select" style="width: 100%">
+            <el-select v-model="create.assetType" @change="obtainValue" placeholder="select">
               <el-option v-for="(item, index) in this.assetTypes" :key="index"
                          :label="item.label"
                          :value="item.value">
@@ -606,7 +606,7 @@
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">
-  @import '../../static/plugins/bootstrap/css/bootstrap.min.css';
-  @import '../../static/css/global.css';
-  @import '../../static/css/main.min.css';
+  @import '../../../static/plugins/bootstrap/css/bootstrap.min.css';
+  @import '../../../static/css/global.css';
+  @import '../../../static/css/main.min.css';
 </style>

@@ -450,7 +450,7 @@
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">
-  @import '../../static/plugins/bootstrap/css/bootstrap.min.css';
-  @import '../../static/css/global.css';
-  @import '../../static/css/main.min.css';
+  @import '../../../static/plugins/bootstrap/css/bootstrap.min.css';
+  @import '../../../static/css/global.css';
+  @import '../../../static/css/main.min.css';
 </style>
