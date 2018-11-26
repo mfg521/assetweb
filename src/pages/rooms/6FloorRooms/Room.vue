@@ -11,7 +11,7 @@
       <div class="scroll-outer" style="height: 5%">
         <div class="scroll-body" style="left: 0px;">
             <span>
-              <router-link v-for=" item in room" :key="index" :to="'/buildingo/6floor/room'"
+              <router-link v-for=" item in room" :key="index" :to="'/building/room'"
                            class="ivu-tag ivu-tag-default ivu-tag-dot ivu-tag-closable ivu-tag-checked"
                            style="background-color: #8c8c8c">
                  <span class="ivu-tag-text" @click="clickShowRoom(item.roomNum)">{{item.roomNum}}</span>

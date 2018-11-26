@@ -4,7 +4,7 @@
        style="width: 15%;  flex: 0 1 auto; height: 100%">
     <div class="ivu-layout-sider-children">
       <div class="side-menu-wrapper">
-        <div class="logo-con"><img src="../../assets/logo.png"/></div>
+        <div class="logo-con"><img src="../../assets/cpelogo.png"/></div>
         <ul class="ivu-menu ivu-menu-dark ivu-menu-vertical" style="width: auto;" v-for="item in items">
           <li class="ivu-menu-submenu">
             <div class="ivu-menu-submenu-title">

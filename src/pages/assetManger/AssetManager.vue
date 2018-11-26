@@ -77,7 +77,7 @@
                   </template>
                 </el-table-column>
 
-                <el-table-column align="center" label="操作" width="300%">
+                <el-table-column align="center" label="操作" width="350%">
                   <template slot-scope="scope">
                     <el-button size="mini" @click="handleEdit(scope.$index, scope.row)"><span class="edit-btn">E</span>
                     </el-button>
