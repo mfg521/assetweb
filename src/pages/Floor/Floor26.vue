@@ -11,9 +11,8 @@
           <a><div class="two_2six" @click="clickOnes(2602)"></div></a>
           <a><div class="three_2six" id="three_2six" @click="clickOnes(2603)"
                   @mouseover="changeSame(2603)" @mouseout="changeEnd(2603)" style="border-bottom: none"></div></a>
-
           <a><div class="seven_2six" id="seven_2six" @click="clickOnes(2601)"
-                  @mouseover="changeSame(2601)" @mouseout="changeEnd(2601)" style="border-top: rgba(75, 70, 91, 0.51) 2px solid"></div></a>
+                  @mouseover="changeSame(2601)" @mouseout="changeEnd(2601)" style="border-top: none"></div></a>
           <a><div class="eight_2six" @click="clickOnes(2604)"></div></a>
           <a><div class="ten_2six" @click="clickOnes(2605)"></div></a>
           <a><div class="eleven_2six" id="eleven_2six" @click="clickOnes(2603)"
@@ -90,7 +89,7 @@
 
     width: 100%
     padding-bottom 50%
-    background: url("/static/images/floor/26Floor.jpg") no-repeat
+    background: url("/dist/static/images/floor/26Floor.jpg") no-repeat
     background-size: 100% //背景图片所占夫级的百分比
     position: relative
     text-align: center
@@ -99,7 +98,8 @@
 
   div.floor2six div {
     border 2px solid #000000
-    margin-right -1px
+    margin-right -2px
+    margin-bottom -2px
 
   }
 
@@ -139,7 +139,7 @@
 
   .seven_2six {
     position: absolute;
-    top: 66%
+    top: 66.4%
     width: 25%
     padding-bottom: 13.2%
     background-color rgba(75, 70, 91, 0.51)
@@ -171,7 +171,7 @@
 
   .eleven_2six {
     position: absolute;
-    top: 66%
+    top: 66.4%
     left 75.2%
     width: 24.5%
     padding-bottom: 13.2%

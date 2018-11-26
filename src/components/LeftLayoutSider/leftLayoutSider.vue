@@ -40,7 +40,7 @@
             isSubShow: false,
 
             subItems: [
-              {name: 'GFloor', floor: 'G'},
+              {name: 'GFloor', floor: '1'},
               {name: '3Floor', floor: '3'},
               {name: '5Floor', floor: '5'},
               {name: '6Floor', floor: '6'},

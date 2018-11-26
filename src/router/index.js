@@ -79,7 +79,7 @@ export default new Router({
       }
     },
     {
-      path:'/buildingo/6floor/room',
+      path:'/building/room',
       component:Room621,
       name:'room',
       meta:{
