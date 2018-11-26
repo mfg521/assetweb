@@ -117,22 +117,34 @@
                  :close-on-press-escape="false"
                  @close="reset">
         <el-form id="#create" :model="create" :rules="rules" ref="create" label-width="120px">
-          <el-form-item label="assetName" prop="assetName">
-            <el-input v-model="create.assetName"></el-input>
-          </el-form-item>
           <el-form-item label="taggerNumber" prop="taggerNumber">
             <el-input v-model="create.taggerNumber"></el-input>
           </el-form-item>
           <el-form-item label="serialNumber" prop="serialNumber">
-            <el-input v-model="create.serialNumber" auto-complete="off"></el-input>
+            <el-input v-model="create.serialNumber"></el-input>
           </el-form-item>
           <el-form-item label="computerModel" prop="computerModel">
-            <el-input v-model="create.computerModel"></el-input>
+            <el-input v-model="create.computerModel" auto-complete="off"></el-input>
           </el-form-item>
-          <el-form-item label="assetType" prop="assetType">
-            <el-input v-model="create.assetType"></el-input>
+          <el-form-item label="beijingCode" prop="beijingCode">
+            <el-input v-model="create.beijingCode"></el-input>
           </el-form-item>
-          <el-form-item label="email" prop="email">
+          <el-form-item label="financeCode" prop="financeCode">
+            <el-input v-model="create.financeCode"></el-input>
+          </el-form-item>
+          <!--<el-form-item label="assetType" prop="assetType">-->
+          <!--<el-input v-model="create.assetType"></el-input>-->
+          <!--</el-form-item>-->
+          <el-form-item label="assetType" prop="assetType" >
+            <el-select v-model="create.assetType" @change="obtainValue" placeholder="select" style="width: 100%">
+              <el-option v-for="(item, index) in this.assetTypes" :key="index"
+                         :label="item.label"
+                         :value="item.value">
+              </el-option>
+            </el-select>
+          </el-form-item>
+
+          <el-form-item label="email" prop="email" style="display: none">
             <el-input v-model="create.email"></el-input>
           </el-form-item>
         </el-form>
@@ -146,15 +158,17 @@
       <el-dialog title="修改资产信息" :visible.sync="dialogUpdateVisible" :close-on-click-modal="false"
                  :close-on-press-escape="false">
         <div class="dialogCare">
-          <div style="border: 2px solid black;width: 255px;margin-top: 2px;margin-bottom: 2px " >
+          <div style="border: 2px solid black;width: 255px;margin-top: 2px;margin-bottom: 2px ">
             <div style="float: left">
               <img src="../../assets/cpelogo.png" style="width: 26px"/>
               <span style="font-size: 14px"> ASSET DETAILS: </span>
-              <p style="margin: 0;font-size: 10px"><span style="margin-right: 5px; font-weight: bold;font-size: 10px">Serial Number</span></p>
-              <p style="margin: 0;font-size: 10px"><span style="margin-right: 5px; font-size: 10px">{{this.curentAsset.serialNumber}}</span></p>
+              <p style="margin: 0;font-size: 10px"><span style="margin-right: 5px; font-weight: bold;font-size: 10px">Serial Number</span>
+              </p>
+              <p style="margin: 0;font-size: 10px"><span style="margin-right: 5px; font-size: 10px">{{this.curentAsset.serialNumber}}</span>
+              </p>
             </div>
             <div>
-              <img :src="this.QrcodeUrl" style="width:83px; height: 83px" />
+              <img :src="this.QrcodeUrl" style="width:83px; height: 83px"/>
             </div>
           </div>
         </div>
@@ -208,19 +222,30 @@
         QrcodeUrl: '',
         url: 'url',
         users: [],
-        curentAsset:{},
+        curentAsset: {},
         create: {
-          assetId: '',
-          assetName: '',
           taggerNumber: '',
           serialNumber: '',
-          computerBrand: '',
           computerModel: '',
+          beijingCode: '',
+          financeCode: '',
           assetType: '',
           email: '',
           assetStatus: 0,
-          is_active: true
         },
+        assetTypes: [{
+          value: '1',
+          label: 'CPU'
+        }, {
+          value: '2',
+          label: 'MONITER'
+        }, {
+          value: '3',
+          label: 'LAPTOP'
+        }, {
+          value: '4',
+          label: 'PHONE'
+        }],
         currentId: '',
         update: {
           name: '',
@@ -290,7 +315,7 @@
     },
 
     mounted: function () {
-      this.getUsers(this.$route.params.assetType,this.$route.query.serialNumber);
+      this.getUsers(this.$route.params.assetType, this.$route.query.serialNumber);
 
     },
 
@@ -325,7 +350,7 @@
         else {
           this.filter.sorts = '';
         }
-        this.getUsers(0,0);
+        this.getUsers(0, 0);
       },
 
       //搜索字段发生变化触发的方法
@@ -338,14 +363,14 @@
       pageSizeChange(val) {
         console.log(`每页 ${val} 条`);
         this.filter.per_page = val;
-        this.getUsers(0,0);
+        this.getUsers(0, 0);
       },
 
       //当前页改变时创建的方法
       pageCurrentChange(val) {
         console.log(`当前页: ${val}`);
         this.filter.page = val;
-        this.getUsers(0,0);
+        this.getUsers(0, 0);
       },
 
       setCurrent(user) {
@@ -365,13 +390,13 @@
       //查询资产信息,当前页点击搜索触发的方法
       query() {
         this.queryFilter = {}
-        this.getUsers(0,0);
+        this.getUsers(0, 0);
       },
 
       // 获取资产信息列表
-      async getUsers(searthType,serialNumber) {
+      async getUsers(searthType, serialNumber) {
         //扫秒二维码时的操作
-        if(serialNumber !== 0 && undefined!==serialNumber){
+        if (serialNumber !== 0 && undefined !== serialNumber) {
           let routerParams = this.$route.query
           this.queryFilter = routerParams
           this.loading = true;
@@ -385,9 +410,9 @@
             this.users = result.data.list
             this.total_rows = result.data.total
             this.loading = false
-            this.searchLocation(this.users[0].assetStatus,serialNumber)
+            this.searchLocation(this.users[0].assetStatus, serialNumber)
           }
-        }else if(searthType===0){
+        } else if (searthType === 0) {
           //从当前页面查看
           this.loading = true;
           var pageNum = this.filter.page
@@ -401,7 +426,7 @@
             this.total_rows = result.data.total
             this.loading = false
           }
-        }else {
+        } else {
           //从首页或者当前页查
           let routerParams = this.$route.params
           this.queryFilter = routerParams
@@ -437,7 +462,7 @@
               this.dialogCreateVisible = false;
               this.createLoading = false;
               this.reset();
-              this.getUsers(0,0);
+              this.getUsers(0, 0);
             } else {
               this.$message.error(result.errmsg);
               this.createLoading = false;
@@ -458,7 +483,7 @@
             resource.delete({id: user.id})
               .then((response) => {
                 this.$message.success('成功删除了用户' + user.username + '!');
-                this.getUsers(0,0);
+                this.getUsers(0, 0);
               })
               .catch((response) => {
                 this.$message.error('删除失败!');
@@ -484,7 +509,7 @@
             resource.remove({ids: ids.join(",")})
               .then((response) => {
                 this.$message.success('删除了' + this.selected.length + '个用户!');
-                this.getUsers(0,0);
+                this.getUsers(0, 0);
               })
               .catch((response) => {
                 this.$message.error('删除失败!');
@@ -549,7 +574,7 @@
 
       //返回图片流直接在src中用就可以
       async searchQrcode(asset) {
-        this.curentAsset=asset
+        this.curentAsset = asset
         this.QrcodeUrl = "http://172.30.1.82:8088/search_qrcode?assetQrcodeAddress=" + asset.assetQrcodeAddress
         this.dialogUpdateVisible = true
 
@@ -564,7 +589,12 @@
         window.location.reload();   //解决打印之后按钮失效的问题
         window.document.body.innerHTML = oldstr;
         return false;
-      }
+      },
+      obtainValue(value) {
+
+        console.log(value)
+
+      },
 
     }
     ,

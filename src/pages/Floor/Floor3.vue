@@ -1,135 +1,92 @@
+<template>
+  <div class="ivu-layout" style="width: 80%; height: 100%; flex: 0 1 auto; ">
+    <!--头部-->
+    <login-header></login-header>
 
-<<template>
+    <div class="ivu-layout-content" style="height: 92%">
+      <div style="height: 100%">
 
-  <div class="hello">
-    <h1 style="text-align: center;">拖动到指定div</h1>
-    <template>
-      <div class='drag-content'>
-        <div class='project-content'>
-          <div class='select-item' draggable='true' @dragstart='drag($event)' v-for='pjdt in projectdatas'>{{pjdt.name}}</div>
-        </div>
-        <div class='people-content'>
-          <div class='drag-div' v-for='(ppindex,ppdt) in peopledata' @drop='drop($event)' @dragover='allowDrop($event)'>
-            <div class='select-project-item'>
-              <label class='drag-people-label'>{{ppindex.name}}：</label>
-            </div>
-          </div>
+        <div class="floor3" v-show="changeIsShow" :class="{'meng ': changeIsShow}" style="height: 0%">
+          <a><div class="one_3floor" @click="clickOnes(301)" @mouseover=""></div></a>
         </div>
       </div>
-    </template>
+    </div>
   </div>
 </template>
 
 <script>
-  let dom = '';
-  import draggable from 'vuedraggable';
+
+  import {mapState} from 'vuex'
+  import LoginHeader from '../../components/LoginHeader/loginHeader'
+  import {reqRoomInfoByFloor} from "../../api/room";
+
   export default {
-    name: 'HelloWorld',
+
     data() {
-      return {
-        msg: 'Welcome to Your Vue.js App',
-        tags: [{
-          id: 1,
-          name: '第一个'
-        }, {
-          id: 2,
-          name: '第二个'
-        }],
-        projectdatas: [{
-          id: 1,
-          name: '葡萄',
-        }, {
-          id: 2,
-          name: '芒果',
-        }, {
-          id: 3,
-          name: '木瓜',
-        }, {
-          id: 4,
-          name: '榴莲',
-        }],
-        peopledata: [{
-          id: 1,
-          name: 'first',
-        }, {
-          id: 2,
-          name: 'second',
-        }, {
-          id: 3,
-          name: 'third ',
-        }, {
-          id: 3,
-          name: 'four',
-        }]
-      }
+      return {}
     },
     methods: {
-      drag(event) {
-        dom = event.currentTarget;
-      },
-      drop(event) {
-        event.preventDefault();
-        console.log('我是target')
-        console.log(event.srcElement.className)
-        if(event.srcElement.className != 'select-item') {
-          event.target.appendChild(dom);
-          console.log(dom);
-        } else {
-          alert('该位置已被占用');
-        }
-      },
-      allowDrop(event) {
-        event.preventDefault(); //preventDefault() 方法阻止元素发生默认的行为（例如，当点击提交按钮时阻止对表单的提交）
-      },
+      async clickOnes(roomNum) {
+        this.$store.dispatch('getRoomInfo',roomNum)
+        this.$store.dispatch('getEmployee', {roomNum})
+        this.$store.dispatch('changeToFalse')
+
+        //通过楼层号找到对应的房间号，为的是显示头table 601 602 603这些按钮
+        const result = await reqRoomInfoByFloor({floor: 3})
+        this.$store.dispatch('commitRoom', {room: result})
+
+        this.$router.push({
+          name: 'room',
+        })
+
+
+      }
     },
+
+    //初始化执行，相关的属性发生改变
+    computed: {
+      ...mapState(['room', 'changeIsShow']),
+    },
+
     components: {
-      draggable
-    },
+      LoginHeader
+    }
   }
+
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-  .select-item {
-    background-color: #5bc0de;
-    display: inline-block;
-    text-align: center;
-    border-radius: 3px;
-    margin-right: 10px;
-    cursor: pointer;
-    padding: 6px 20px;
-    color: #fff;
+<style lang="stylus" rel="stylesheet/stylus">
+  @import "../../common/stylus/mixins.styl"
+
+  .floor3 {
+
+    width: 100%
+    padding-bottom 80%
+    background: url("/dist/static/images/floor/3rdFlr.jpg") no-repeat
+    background-size: 100% //背景图片所占夫级的百分比
+    position: relative
+    text-align: center
+    height 0Px
   }
 
-  .cursored {
-    cursor: default;
+  div.floor3 div {
+    border 2px solid #000000
+    margin-right -1px
+
   }
 
-  .project-content,
-  .people-content {
-    margin: 30px 50px;
+  div.floor3 div:hover {
+    border 2px solid blue
+    background-color rgba(150, 150, 91, 0.51)
+
   }
 
-  .people-content {
-    margin-top: 30px;
-  }
-
-  .drag-div {
-    border: 1px solid #5bc0de;
-    padding: 10px;
-    margin-bottom: 10px;
-    width: 800px;
-    cursor: pointer;
-  }
-
-  .select-project-item {
-    display: inline-block;
-    text-align: center;
-    border-radius: 3px;
-  }
-
-  .drag-people-label {
-    margin-bottom: 0;
-    padding-right: 10px;
+  .one_3floor {
+    width: 100%
+    padding-bottom 90% //这个是宽度的百分比
+    height 0px
+    background-color rgba(75, 70, 91, 0.51)
+    float left
+    flex 1 1 auto
   }
 </style>

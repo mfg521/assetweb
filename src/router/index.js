@@ -4,6 +4,7 @@ import FloorG from '../pages/Floor/FloorG'
 import Floor3 from '../pages/Floor/Floor3'
 import Floor5 from '../pages/Floor/Floor5'
 import Floor6 from '../pages/Floor/Floor6'
+import Floor26 from '../pages/Floor/Floor26'
 import Room621 from '../pages/rooms/6FloorRooms/Room'
 import assetManager from '../pages/assetManger/AssetManager'
 import record from '../pages/Record/Record'
@@ -39,7 +40,7 @@ export default new Router({
     },
 
     {
-      path:'/buildingone/gfloor',
+      path:'/buildingo/gfloor',
       component:FloorG,
       meta:{
         showLayoutSider:true
@@ -66,6 +67,13 @@ export default new Router({
     {
       path: '/buildingo/6floor',
       component: Floor6,
+      meta: {
+        showLayoutSider: true
+      }
+    },
+    {
+      path: '/buildingt/6floor',
+      component: Floor26,
       meta: {
         showLayoutSider: true
       }
